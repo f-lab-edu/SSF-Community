@@ -6,7 +6,7 @@ drop table if exists file;
 create table member
 (
     id      int  NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    uid     varchar2(100) NOT NULL,
+    uid     varchar2(100) NOT NULL UNIQUE,
     pw      varchar2(100) NOT NULL,
     email   varchar2(100) NOT NULL,
     phone   varchar2(100) NOT NULL,
@@ -27,7 +27,7 @@ create table board
     date     DATE    NOT NULL,
     category TINYINT NOT NULL,
     views    int     NOT NULL,
-    uid       VARCHAR2(100)
+    uid       VARCHAR2(100),
         FOREIGN KEY (uid) REFERENCES member(uid) ON UPDATE CASCADE ON DELETE CASCADE
 );
 

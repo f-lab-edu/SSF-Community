@@ -200,7 +200,7 @@ class MemberMapperTest {
         member.setName("몬스터");
 
         Member member2 = new Member();
-        member2.setUid("wwww");
+        member2.setUid("dadsa");
         member2.setPhone("0688245");
         member2.setAddress("센텀");
         member2.setDate(new Date());
@@ -211,21 +211,10 @@ class MemberMapperTest {
         member2.setRole('y');
         member2.setName("몬스터");
 
-        Member member3 = new Member();
-        member3.setUid("wwww");
-        member3.setPhone("0688245");
-        member3.setAddress("센텀");
-        member3.setDate(new Date());
-        member3.setEmail("wqqwwq@naver.com");
-        member3.setEnabled('n');
-        member3.setGrade('y');
-        member3.setPw("2545");
-        member3.setRole('y');
-        member3.setName("몬스터");
+
 
         memberMapper.insert(member);
         memberMapper.insert(member2);
-        memberMapper.insert(member3);
 
         List<Member> selectList=memberMapper.selectEnabled();
         assertThat(selectList.size()).isEqualTo(2);
