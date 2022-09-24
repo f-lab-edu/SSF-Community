@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BoardForm {
 
-    private int no;
+
 
     private String title;
 
@@ -26,13 +26,6 @@ public class BoardForm {
         this.uid = uid;
     }
 
-    public int getNo() {
-        return no;
-    }
-
-    public void setNo(int no) {
-        this.no = no;
-    }
 
     public String getTitle() {
         return title;

@@ -6,8 +6,6 @@ import java.util.Date;
 
 public class Board {
 
-    @Id
-    private Long id;
 
     private int no;
 
@@ -31,13 +29,6 @@ public class Board {
         this.uid = uid;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public int getNo() {
         return no;
@@ -90,7 +81,6 @@ public class Board {
     @Override
     public String toString() {
         return "Board{" +
-                "id=" + id +
                 ", no='" + no + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +

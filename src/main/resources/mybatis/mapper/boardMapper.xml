@@ -5,15 +5,17 @@
 
 <mapper namespace="flab.SSF.Community.Mapper.BoardMapper">
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        insert into board(no, title, content, date, category, views, uid)
-        values (#{no}, #{title}, #{content}, #{date}, #{category}, #{views}, #{uid});
+    <insert id="insert" useGeneratedKeys="true" keyProperty="no">
+        insert into board(title, content, date, category, views, uid)
+        values ( #{title}, #{content}, #{date}, #{category}, #{views}, #{uid});
     </insert>
     <update id="update">
         update board
         set title=#{title},
-            content=#{content}
-        where id=#{board.id};
+            content=#{content},
+            category=#{category}
+        where no=#{board.no};
+
 
     </update>
     <delete id="delete">

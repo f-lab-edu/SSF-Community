@@ -1,13 +1,12 @@
 package flab.SSF.Community.domain;
 
-import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
 
 public class Member {
 
-    @Id
+
     private Long id;
 
     private String uid;
