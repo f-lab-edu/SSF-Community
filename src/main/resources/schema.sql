@@ -30,4 +30,15 @@ create table board
         FOREIGN KEY (uid) REFERENCES member(uid) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+create table comment
+(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    content VARCHAR2(500) NOT NULL,
+    uid VARCHAR2(100),
+    no int,
+    date DATE DEFAULT now(),
+        FOREIGN KEY (uid) REFERENCES member(uid) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (no) REFERENCES board(no) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 

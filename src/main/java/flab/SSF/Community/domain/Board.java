@@ -1,6 +1,5 @@
 package flab.SSF.Community.domain;
 
-import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
@@ -87,6 +86,7 @@ public class Board {
                 ", date='" + date + '\'' +
                 ", category=" + category +
                 ", views=" + views +
+                ", uid=" + uid +
                 '}';
     }
 }
