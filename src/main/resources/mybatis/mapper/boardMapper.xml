@@ -30,22 +30,22 @@
     <select id="orderByViews" resultType="flab.SSF.Community.domain.Board">
         select *
         from board
-        ORDER BY views;
+        ORDER BY views DESC;
     </select>
     <select id="selectByUid" parameterType="String" resultType="flab.SSF.Community.domain.Board">
         select *
         from board
-        WHERE uid = #{uid};
+        WHERE LOCATE(#{uid}, uid)>0;
     </select>
     <select id="selectByTitle" parameterType="String" resultType="flab.SSF.Community.domain.Board">
         select *
         from board
-        WHERE title = #{title};
+        WHERE LOCATE(#{title}, title)>0;
     </select>
     <select id="selectByContent" parameterType="String" resultType="flab.SSF.Community.domain.Board">
         select *
         from board
-        WHERE content = #{content};
+        WHERE LOCATE(#{content}, content)>0;
     </select>
     <select id="selectByCategory" parameterType="int" resultType="flab.SSF.Community.domain.Board">
         select *

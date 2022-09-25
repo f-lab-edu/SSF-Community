@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes("admin")
+@SessionAttributes("user")
 public class LoginController {
 
     private final MemberService memberService;
@@ -30,7 +30,7 @@ public class LoginController {
     @PostMapping("/members/login")
     public String login(MemberForm memberForm, Model model) {
        Member member=memberService.login(memberForm.getUid(),memberForm.getPw()).get();
-       model.addAttribute("admin",member.getUid());
+       model.addAttribute("user",member.getUid());
 
         if (member.getRole()!='y') {
             return "/login/loginResult";
