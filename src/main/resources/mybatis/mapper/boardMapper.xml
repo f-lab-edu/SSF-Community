@@ -6,8 +6,8 @@
 <mapper namespace="flab.SSF.Community.Mapper.BoardMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="no">
-        insert into board(title, content, date, category, views, uid)
-        values ( #{title}, #{content}, #{date}, #{category}, #{views}, #{uid});
+        insert into board(title, content,category, uid)
+        values ( #{title}, #{content}, #{category}, #{uid});
     </insert>
     <update id="update">
         update board

@@ -6,10 +6,10 @@
 <mapper namespace="flab.SSF.Community.Mapper.MemberMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO member(uid,pw,email,phone,grade,address,name,role,enabled,date)
+        INSERT INTO member(uid,pw,email,phone,grade,address,name,role,enabled)
         values (#{uid},#{pw},#{email},#{phone},
                 #{grade},#{address},#{name},#{role}
-                ,#{enabled},#{date});
+                ,#{enabled});
     </insert>
     <update id="update">
         UPDATE member SET pw=#{dpw} WHERE uid=#{member.uid};

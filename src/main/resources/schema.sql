@@ -25,7 +25,7 @@ create table board
     content  varchar2(4000) NOT NULL,
     date     DATE    DEFAULT now(),
     category TINYINT NOT NULL,
-    views    int     NOT NULL,
+    views    int     DEFAULT '0',
     uid       VARCHAR2(100),
         FOREIGN KEY (uid) REFERENCES member(uid) ON UPDATE CASCADE ON DELETE CASCADE
 );

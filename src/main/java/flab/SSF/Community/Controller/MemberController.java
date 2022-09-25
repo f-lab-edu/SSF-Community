@@ -30,7 +30,6 @@ public class MemberController {
     public String create(MemberForm memberForm) {
         Member member = new Member();
         member.setAddress(memberForm.getAddress());
-        member.setDate(new Date());
         member.setEmail(memberForm.getEmail());
         member.setEnabled('Y');
         member.setUid(memberForm.getUid());
