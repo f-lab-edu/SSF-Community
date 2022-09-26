@@ -5,9 +5,13 @@
 
 <mapper namespace="flab.SSF.Community.Mapper.BoardMapper">
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="no">
+    <insert id="insert" parameterType="board" useGeneratedKeys="true" keyProperty="no">
         insert into board(title, content,category, uid)
         values ( #{title}, #{content}, #{category}, #{uid});
+
+        <selectKey keyProperty="no" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
     <update id="update">
         update board
@@ -16,6 +20,12 @@
             category=#{category}
         where no=#{board.no};
 
+
+    </update>
+    <update id="updateViews">
+        update board
+        set views=views+1
+        where no=#{board.no};
 
     </update>
     <delete id="delete">
@@ -52,5 +62,11 @@
         from board
         WHERE category = #{category};
     </select>
+    <select id="selectByNo" parameterType="int" resultType="flab.SSF.Community.domain.Board">
+        select *
+        from board
+        WHERE no = #{no};
+    </select>
+
 
 </mapper>

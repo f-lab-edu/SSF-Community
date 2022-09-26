@@ -21,6 +21,9 @@ public interface BoardMapper {
     void update(@Param("board") Board board, @Param("title") String title,
                 @Param("content") String content, @Param("category") int category);
 
+    //게시글 조회수 증가
+    void updateViews(Board board);
+
     //게시글 전체목록
     List<Board> findAll();
 
@@ -39,5 +42,7 @@ public interface BoardMapper {
 
     //게시글 카테고리 별로 조회하기
     List<Board> selectByCategory(int category);
+
+    Optional<Board> selectByNo(int no);
 
 }

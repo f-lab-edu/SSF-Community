@@ -24,7 +24,7 @@ public class LoginController {
 
     @GetMapping("/members/login")
     public String loginForm() {
-        return "/members/loginForm";
+        return "members/loginForm";
     }
 
     @PostMapping("/members/login")
@@ -33,15 +33,15 @@ public class LoginController {
        model.addAttribute("user",member.getUid());
 
         if (member.getRole()!='y') {
-            return "/login/loginResult";
+            return "login/loginResult";
         }
-        return "/login/loginResultAdmin";
+        return "login/loginResultAdmin";
     }
 
     @GetMapping("/members/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "/home";
+        return "home";
     }
 
 
