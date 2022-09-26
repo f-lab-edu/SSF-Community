@@ -5,7 +5,7 @@
 
 <mapper namespace="flab.SSF.Community.Mapper.BoardMapper">
 
-    <insert id="insert" parameterType="board" useGeneratedKeys="true" keyProperty="no">
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="no">
         insert into board(title, content,category, uid)
         values ( #{title}, #{content}, #{category}, #{uid});
 
@@ -25,13 +25,13 @@
     <update id="updateViews">
         update board
         set views=views+1
-        where no=#{board.no};
+        where no=#{no};
 
     </update>
     <delete id="delete">
         delete
         from board
-        WHERE no =#{board.no};
+        WHERE no =#{no};
     </delete>
     <select id="findAll" resultType="flab.SSF.Community.domain.Board">
         select *

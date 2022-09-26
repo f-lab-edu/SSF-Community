@@ -2,9 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <settings>
-        <setting name="logImpl" value="LOG4J"/>
-    </settings>
     <typeAliases>
 <!--        <package name="flab.SSF.Community.domain"/>-->
     </typeAliases>
@@ -12,6 +9,5 @@
         <mapper resource="mybatis/mapper/memberMapper.xml"/>
         <mapper resource="mybatis/mapper/boardMapper.xml"/>
         <mapper resource="mybatis/mapper/commentMapper.xml"/>
-
     </mappers>
 </configuration>
