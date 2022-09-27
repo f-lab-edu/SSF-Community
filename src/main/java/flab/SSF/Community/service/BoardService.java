@@ -29,21 +29,21 @@ public class BoardService {
     /**
      * 게시글 수정(제목, 내용, 카테고리)
      */
-    void updateBoard(Board board,String title, String content, int category) {
+    public void updateBoard(Board board,String title, String content, int category) {
         boardMapper.update(board, title, content, category);
     }
 
     /**
      * 해당 게시글 삭제
      */
-    void deleteBoard(Board board) {
-        boardMapper.delete(board);
+    public void deleteBoard(int no) {
+        boardMapper.delete(no);
     }
 
     /**
      * 게시글 조회수 증가
      */
-    void updateBoardViews(Board board) {
+    public void updateBoardViews(Board board) {
         boardMapper.updateViews(board);
     }
 
@@ -51,35 +51,35 @@ public class BoardService {
     /**
      * 게시글 조회수별 정렬
      */
-    List<Board> findListbyViews() {
+    public List<Board> findListbyViews() {
         return boardMapper.orderByViews();
     }
 
     /**
      * 게시글 제목 검색 정렬
      */
-    List<Board> findListbyTitle(String title) {
+    public List<Board> findListbyTitle(String title) {
         return boardMapper.selectByTitle(title);
     }
 
     /**
      * 게시글 내용 검색 정렬
      */
-    List<Board> findListbyContent(String content) {
+    public List<Board> findListbyContent(String content) {
         return boardMapper.selectByContent(content);
     }
 
     /**
      * 게시글 카테고리 검색 정렬
      */
-    List<Board> findListbyCategory(int category) {
+    public List<Board> findListbyCategory(int category) {
         return boardMapper.selectByCategory(category);
     }
 
     /**
      * 게시글 번호 검색으로 게시글 찾기
      */
-    Optional<Board> findBoardbyNo(int no) {
+    public Optional<Board> findBoardbyNo(int no) {
         return boardMapper.selectByNo(no);
     }
 

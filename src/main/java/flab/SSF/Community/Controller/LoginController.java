@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -28,9 +30,10 @@ public class LoginController {
     }
 
     @PostMapping("/members/login")
-    public String login(MemberForm memberForm, Model model) {
+    public String login(MemberForm memberForm, Model model,HttpServletResponse response) {
        Member member=memberService.login(memberForm.getUid(),memberForm.getPw()).get();
        model.addAttribute("user",member.getUid());
+//        setCookie(response, member);
 
         if (member.getRole()!='y') {
             return "login/loginResult";
@@ -44,5 +47,10 @@ public class LoginController {
         return "home";
     }
 
-
+//    public HttpServletResponse setCookie(HttpServletResponse response,Member member) {
+//        Cookie cookie = new Cookie("username",member.getUid());
+//        cookie.setMaxAge(7*24*60*60);
+//        response.addCookie(cookie);
+//        return response;
+//    }
 }

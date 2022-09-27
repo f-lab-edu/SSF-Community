@@ -28,7 +28,7 @@
         where no=#{no};
 
     </update>
-    <delete id="delete">
+    <delete id="delete" parameterType="int">
         delete
         from board
         WHERE no =#{no};

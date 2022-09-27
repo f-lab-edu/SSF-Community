@@ -5,6 +5,15 @@ import java.util.Date;
 public class BoardForm {
 
 
+    private int no;
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
 
     private String title;
 

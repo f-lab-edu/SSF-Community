@@ -15,7 +15,7 @@ public interface BoardMapper {
     void insert(Board board);
 
     //게시글 삭제
-    void delete(Board board);
+    void delete(int no);
 
     //게시글 수정
     void update(@Param("board") Board board, @Param("title") String title,
