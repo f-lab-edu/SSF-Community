@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="flab.SSF.Community.Mapper.BoardMapper">
+<mapper namespace="flab.ssf.community.mapper.BoardMapper">
 
     <insert id="insert"  useGeneratedKeys="true" keyProperty="no">
         insert into board(title, content,category, uid)
@@ -33,36 +33,36 @@
         from board
         WHERE no =#{no};
     </delete>
-    <select id="findAll" resultType="flab.SSF.Community.domain.Board">
+    <select id="findAll" resultType="flab.ssf.community.domain.Board">
         select *
         from board;
     </select>
-    <select id="orderByViews" resultType="flab.SSF.Community.domain.Board">
+    <select id="orderByViews" resultType="flab.ssf.community.domain.Board">
         select *
         from board
         ORDER BY views DESC;
     </select>
-    <select id="selectByUid" parameterType="String" resultType="flab.SSF.Community.domain.Board">
+    <select id="selectByUid" parameterType="String" resultType="flab.ssf.community.domain.Board">
         select *
         from board
         WHERE LOCATE(#{uid}, uid)>0;
     </select>
-    <select id="selectByTitle" parameterType="String" resultType="flab.SSF.Community.domain.Board">
+    <select id="selectByTitle" parameterType="String" resultType="flab.ssf.community.domain.Board">
         select *
         from board
         WHERE LOCATE(#{title}, title)>0;
     </select>
-    <select id="selectByContent" parameterType="String" resultType="flab.SSF.Community.domain.Board">
+    <select id="selectByContent" parameterType="String" resultType="flab.ssf.community.domain.Board">
         select *
         from board
         WHERE LOCATE(#{content}, content)>0;
     </select>
-    <select id="selectByCategory" parameterType="int" resultType="flab.SSF.Community.domain.Board">
+    <select id="selectByCategory" parameterType="int" resultType="flab.ssf.community.domain.Board">
         select *
         from board
         WHERE category = #{category};
     </select>
-    <select id="selectByNo" parameterType="int" resultType="flab.SSF.Community.domain.Board">
+    <select id="selectByNo" parameterType="int" resultType="flab.ssf.community.domain.Board">
         select *
         from board
         WHERE no = #{no};

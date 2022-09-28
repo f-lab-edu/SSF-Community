@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="flab.SSF.Community.Mapper.CommentMapper">
+<mapper namespace="flab.ssf.community.mapper.CommentMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into comment(content, uid, no)
@@ -21,7 +21,7 @@
         from comment
         WHERE no =#{comment.no};
     </delete>
-    <select id="findbyNo" resultType="flab.SSF.Community.domain.Comment">
+    <select id="findbyNo" resultType="flab.ssf.community.domain.Comment">
         select *
         from comment
         WHERE no =#{no};
