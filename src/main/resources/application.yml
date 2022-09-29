@@ -3,12 +3,16 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ssf?characterEncoding=utf8
     username: kkw
-    password: ktf1686
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+    schema:
+      classpath: schema.sql
+  sql:
+    init:
+      mode: always
 
 
-
-#mybatis.type-aliases-package:flab.SSF.Community
+#mybatis.type-aliases-package:flab.ssf.community
 
 mybatis:
   config-location: classpath:mybatis-config.xml

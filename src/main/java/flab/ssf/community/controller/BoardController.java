@@ -2,6 +2,7 @@ package flab.ssf.community.controller;
 
 import flab.ssf.community.domain.Board;
 import flab.ssf.community.service.BoardService;
+import flab.ssf.community.vo.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,33 +25,13 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/boards/category")
-    public String boardList() {
-        return "boards/category";
-    }
 
-    @GetMapping("/boards/category1")
-    public String noticeBoardList(Model model,HttpSession session) {
-        List<Board> boards= boardService.findListbyCategory(1);
+    @GetMapping("/boards")
+    public String noticeBoardList(Model model,HttpSession session,Category category) {
+        List<Board> boards= boardService.findListbyCategory(category.getNumber());
         model.addAttribute("boards",boards);
         model.addAttribute("session",session.getAttribute("user"));
-        return "boards/noticeBoardList";
-    }
-
-    @GetMapping("/boards/category2")
-    public String freeBoardList(Model model, HttpSession session) {
-        List<Board> boards= boardService.findListbyCategory(2);
-        model.addAttribute("boards",boards);
-        model.addAttribute("session",session.getAttribute("user"));
-        return "boards/freeBoardList";
-    }
-
-    @GetMapping("/boards/category3")
-    public String meetingBoardList(Model model,HttpSession session) {
-        List<Board> boards= boardService.findListbyCategory(3);
-        model.addAttribute("boards",boards);
-        model.addAttribute("session",session.getAttribute("user"));
-        return "boards/meetingBoardList";
+        return "boards/BoardList";
     }
 
 

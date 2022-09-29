@@ -10,7 +10,7 @@
         values ( #{title}, #{content}, #{category}, #{uid});
 
         <selectKey keyProperty="no" resultType="int" order="AFTER">
-            SELECT LAST_INSERT_ID()
+            SELECT LAST_INSERT_ID();
         </selectKey>
     </insert>
     <update id="update">
