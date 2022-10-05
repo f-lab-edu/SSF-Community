@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script>
+    goPost = function() {
+        let f = document.createElement('form');
+        f.setAttribute('method', 'post');
+        f.setAttribute('action', '/members/login');
+        document.body.appendChild(f);
+        f.submit();
+    }
+
+    doDelete = function(number, checkedCategory) {
+
+
+        let d = document.createElement('form');
+        d.setAttribute('method', 'post');
+        d.setAttribute('action', '/boards');
+        let hiddenField = document.createElement('input');
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', '_method');
+        hiddenField.setAttribute('value', 'delete');
+        let boardNo = document.createElement('input');
+        boardNo.setAttribute('type', 'hidden');
+        boardNo.setAttribute('name', 'no');
+        boardNo.setAttribute('value', number);
+        let categoryParameter = document.createElement('input');
+        categoryParameter.setAttribute('type', 'hidden');
+        categoryParameter.setAttribute('name', 'checkedCategory');
+        categoryParameter.setAttribute('value', checkedCategory);
+        d.appendChild(hiddenField);
+        d.appendChild(boardNo);
+        d.appendChild(categoryParameter);
+        document.body.appendChild(d);
+        d.submit();
+    }
+
+
+</script>
+  <h1 th:text="${category}+' 게시판 목록'"></h1>
+    <table border="1">
+            <col width="50px">
+            <col width="100px">
+            <col width="300px">
+            <col width="200px">
+            <col width="50px">
+            <col width="50px">
+      <tr>
+        <th>게시글번호</th>
+        <th>작성자</th>
+        <th>게시글제목</th>
+        <th>작성날짜</th>
+        <th>조회수</th>
+        <th>수정</th>
+        <th>삭제</th>
+      </tr>
+
+      <tr th:each="board : ${boards}">
+        <td th:text="${board.no}"></td>
+        <td th:text="${board.uid}"></td>
+        <td><a th:href="@{/boards/getBoard(no=${board.no})}"><span th:text="${board.title}"></span></a></td>
+        <td th:text="${board.date}"></td>
+        <td th:text="${board.views}"></td>
+        <td>
+            <th:block th:if="${board.uid==user}"><a th:href="@{/boards/update(no=${board.no})}">수정</a></th:block>
+
+        </td>
+        <td>
+            <th:block th:if="${board.uid==user}"><a href="javascript:void(0)" th:attr="onclick=|doDelete('${board.no}','${category}')|" >삭제</a></th:block>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+            <a href="/boards/new">글쓰기</a>
+            <a href="javascript:void(0)" onclick="goPost()">로그인화면</a>
+        </td>
+
+      </tr>
+
+    </table>
+</body>
+</html>

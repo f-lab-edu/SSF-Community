@@ -3,13 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="flab.SSF.Community.Mapper.MemberMapper">
+<mapper namespace="flab.ssf.community.mapper.MemberMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO member(uid,pw,email,phone,grade,address,name,role,enabled,date)
+        INSERT INTO member(uid,pw,email,phone,grade,address,name,role,enabled)
         values (#{uid},#{pw},#{email},#{phone},
                 #{grade},#{address},#{name},#{role}
-                ,#{enabled},#{date});
+                ,#{enabled});
     </insert>
     <update id="update">
         UPDATE member SET pw=#{dpw} WHERE uid=#{member.uid};
@@ -17,19 +17,19 @@
     <delete id="delete">
         DELETE FROM member WHERE uid=#{uid};
     </delete>
-    <select id="findAll"  resultType="flab.SSF.Community.domain.Member">
+    <select id="findAll"  resultType="flab.ssf.community.domain.Member">
         select * from member;
     </select>
-    <select id="findById" parameterType="String" resultType="flab.SSF.Community.domain.Member">
+    <select id="findById" parameterType="String" resultType="flab.ssf.community.domain.Member">
         select * from member WHERE uid=#{uid};
     </select>
-    <select id="findByEmail" parameterType="String" resultType="flab.SSF.Community.domain.Member">
+    <select id="findByEmail" parameterType="String" resultType="flab.ssf.community.domain.Member">
         select * from member WHERE email=#{email};
     </select>
-    <select id="selectEnabled" resultType="flab.SSF.Community.domain.Member">
+    <select id="selectEnabled" resultType="flab.ssf.community.domain.Member">
         select * from member WHERE enabled='y';
     </select>
-    <select id="login" resultType="flab.SSF.Community.domain.Member">
+    <select id="login" resultType="flab.ssf.community.domain.Member">
         select * from member WHERE uid=#{uid} AND pw=${pw};
     </select>
 
