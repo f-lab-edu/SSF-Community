@@ -36,5 +36,7 @@ public interface MemberMapper {
     //가입 회원 정보 출력
     List<Member> selectEnabled();
 
+    void ammendInformation(@Param("member")Member member, @Param("email")String email,
+                           @Param("phone")String phone, @Param("address")String address, @Param("name")String name);
 
 }

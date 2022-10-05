@@ -14,6 +14,9 @@
     <update id="update">
         UPDATE member SET pw=#{dpw} WHERE uid=#{member.uid};
     </update>
+    <update id="ammendInformation">
+        UPDATE member SET email=#{email}, phone=#{phone}, address=#{address}, name=#{name},WHERE uid=#{member.uid};
+    </update>
     <delete id="delete">
         DELETE FROM member WHERE uid=#{uid};
     </delete>

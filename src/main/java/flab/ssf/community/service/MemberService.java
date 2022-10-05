@@ -37,7 +37,37 @@ public class MemberService {
     /**
      * 아이디 정책유효성 검사
      */
-//    public static boolean validatePolicy(String regex, CharSequence input) {
+//    public static boolean uidValidatePolicy(String regex, CharSequence input) {
+//
+//        Pattern p = Pattern.compile(regex);
+//        Matcher m = p.matcher(input);
+//        return (input.length()>13 || m.matches());
+//    }
+
+    /**
+     * 비밀번호 정책유효성 검사
+     */
+//    public static boolean pwValidatePolicy(String regex, CharSequence input) {
+//
+//        Pattern p = Pattern.compile(regex);
+//        Matcher m = p.matcher(input);
+//        return (input.length()>13 || m.matches());
+//    }
+
+    /**
+     * 이메일 정책유효성 검사
+     */
+//    public static boolean EmailValidatePolicy(String regex, CharSequence input) {
+//
+//        Pattern p = Pattern.compile(regex);
+//        Matcher m = p.matcher(input);
+//        return (input.length()>13 || m.matches());
+//    }
+
+    /**
+     * 폰번호 정책유효성 검사
+     */
+//    public static boolean PhoneValidatePolicy(String regex, CharSequence input) {
 //
 //        Pattern p = Pattern.compile(regex);
 //        Matcher m = p.matcher(input);
@@ -45,11 +75,17 @@ public class MemberService {
 //    }
 
 
+    /**
+     * 이메일 중복검사
+     */
     private void validateDuplicateEmail(Member member) {
         memberMapper.findByEmail(member.getEmail()).ifPresent
                 (m -> {throw new IllegalStateException("이미 등록된 이메일입니다.");});
     }
 
+    /**
+     * 아이디 중복검사
+     */
     private void validateDuplicateId(Member member) {
         memberMapper.findById(member.getUid()).ifPresent
                 (m -> {throw new IllegalStateException("이미 등록된 아이디입니다.");} );
@@ -68,10 +104,9 @@ public class MemberService {
     /**
      * 아이디로 비밀번호 찾기(새로운 비밀번호로 변경)
      */
-    public Member findPassword(String uid, String pw) {
+    public void findPassword(String uid, String pw) {
         Member member=memberMapper.findById(uid).orElseGet(()->{throw new IllegalStateException("등록되지 않은 회원입니다.");});
         memberMapper.update(member,pw);
-        return member;
     }
 
 
@@ -103,4 +138,17 @@ public class MemberService {
     public List<Member> findMembersEnabled() {
         return memberMapper.selectEnabled();
     }
+
+
+    public void updateMember(Member member,String email, String phone, String address, String name) {
+//        EmailValidatePolicy;
+        validateDuplicateEmail(member);
+//        PhoneValidatePolicy;
+        memberMapper.ammendInformation(member, email, phone, address,name);
+    }
+
+    public void deleteMember(Member member) {
+        memberMapper.delete(member);
+    }
+
 }

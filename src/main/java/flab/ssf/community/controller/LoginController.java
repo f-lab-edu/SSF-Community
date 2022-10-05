@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/members")
+@RequestMapping("/login")
 @SessionAttributes("user")
 public class LoginController {
 
@@ -23,12 +23,12 @@ public class LoginController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/login")
+    @GetMapping
     public String loginForm() {
         return "members/loginForm";
     }
 
-    @PostMapping("/login")
+    @PostMapping
     public String login(MemberForm memberForm, Model model,HttpSession session) {
         Member member;
         if (session.getAttribute("user")==null) {
@@ -45,10 +45,6 @@ public class LoginController {
         return "login/loginResultAdmin";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "home";
-    }
+
 
 }
