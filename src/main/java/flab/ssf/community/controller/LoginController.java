@@ -6,12 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/members")
 @SessionAttributes("user")
 public class LoginController {
 
@@ -21,16 +23,21 @@ public class LoginController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/members/login")
+    @GetMapping("/login")
     public String loginForm() {
         return "members/loginForm";
     }
 
-    @PostMapping("/members/login")
-    public String login(MemberForm memberForm, Model model,HttpServletResponse response) {
-       Member member=memberService.login(memberForm.getUid(),memberForm.getPw()).get();
-       model.addAttribute("user",member.getUid());
-//        setCookie(response, member);
+    @PostMapping("/login")
+    public String login(MemberForm memberForm, Model model,HttpSession session) {
+        Member member;
+        if (session.getAttribute("user")==null) {
+            member = memberService.login(memberForm.getUid(), memberForm.getPw()).get();
+            model.addAttribute("user", member.getUid());
+            session.setAttribute("user", member.getUid());
+        } else {
+            member=memberService.findOne((String)session.getAttribute("user")).get();
+        }
 
         if (member.getRole()!='y') {
             return "login/loginResult";
@@ -38,16 +45,10 @@ public class LoginController {
         return "login/loginResultAdmin";
     }
 
-    @GetMapping("/members/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "home";
     }
 
-//    public HttpServletResponse setCookie(HttpServletResponse response,Member member) {
-//        Cookie cookie = new Cookie("username",member.getUid());
-//        cookie.setMaxAge(7*24*60*60);
-//        response.addCookie(cookie);
-//        return response;
-//    }
 }

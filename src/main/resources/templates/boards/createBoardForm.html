@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script>
+  cancel= function () {
+    alert("취소되었습니다.");
+    history.go(-1);
+  }
+  registration= function() {
+    alert("등록되었습니다.");
+  }
+</script>
+    <h1>게시글 쓰기</h1>
+    <form action="/boards/new"  method="post">
+      <table border="1">
+        <tr>
+          <th>카테고리</th>
+          <td><label><input type="checkbox" name="checkedcategory" value="NOTICE">공지</label>
+            <label><input type="checkbox" name="checkedcategory" value="FREE">자유</label>
+            <label><input type="checkbox" name="checkedcategory" value="MEETING">모임</label>
+          </td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td><input type="text" name="title" ></td>
+        </tr>
+        <tr>
+          <th>글내용</th>
+          <td>
+                        <textarea row="10" cols="60" name="content" >
+                            </textarea>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" value="등록" onclick="registration()">
+            <input type="button" value="취소" onclick="cancel()">
+          </td>
+        </tr>
+      </table>
+
+    </form>
+
+
+</body>
+</html>
