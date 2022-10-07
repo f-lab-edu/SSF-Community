@@ -33,7 +33,7 @@
         select * from member WHERE enabled='y';
     </select>
     <select id="login" resultType="flab.ssf.community.domain.Member">
-        select * from member WHERE uid=#{uid} AND pw=${pw};
+        select * from member WHERE uid=#{uid} AND pw=#{pw};
     </select>
 
 </mapper>

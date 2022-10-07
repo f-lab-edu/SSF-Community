@@ -1,4 +1,4 @@
-package flab.ssf.community.Utils;
+package flab.ssf.community.utils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

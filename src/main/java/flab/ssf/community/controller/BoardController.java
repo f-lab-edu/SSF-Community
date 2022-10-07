@@ -1,6 +1,6 @@
 package flab.ssf.community.controller;
 
-import flab.ssf.community.Utils.ScriptUtils;
+import flab.ssf.community.utils.ScriptUtils;
 import flab.ssf.community.domain.Board;
 import flab.ssf.community.service.BoardService;
 import flab.ssf.community.vo.Category;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

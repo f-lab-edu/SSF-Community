@@ -1,6 +1,6 @@
 package flab.ssf.community.controller;
 
-import flab.ssf.community.Utils.ScriptUtils;
+import flab.ssf.community.utils.ScriptUtils;
 import flab.ssf.community.domain.Member;
 import flab.ssf.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public String create(MemberForm memberForm) {
+    public void create(MemberForm memberForm,HttpServletResponse response) {
         Member member = new Member();
         member.setAddress(memberForm.getAddress());
         member.setEmail(memberForm.getEmail());
@@ -42,9 +42,19 @@ public class MemberController {
         member.setPw(memberForm.getPw());
         member.setPhone(memberForm.getPhone());
 
-        memberService.join(member);
+        try {
+            memberService.join(member);
+            ScriptUtils.alertAndMovePage(response,"회원가입에 성공하였습니다.","/");
+        } catch (IllegalStateException il) {
+            try {
+                ScriptUtils.alertAndBackPage(response, il.getMessage());
+            } catch (Exception ex) {
+                ex.getMessage();
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
 
-        return "home";
     }
 
     @GetMapping

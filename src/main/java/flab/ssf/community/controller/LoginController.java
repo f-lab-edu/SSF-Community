@@ -2,6 +2,7 @@ package flab.ssf.community.controller;
 
 import flab.ssf.community.domain.Member;
 import flab.ssf.community.service.MemberService;
+import flab.ssf.community.utils.ScriptUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/login")
@@ -29,12 +31,25 @@ public class LoginController {
     }
 
     @PostMapping
-    public String login(MemberForm memberForm, Model model,HttpSession session) {
-        Member member;
+    public String login(MemberForm memberForm, Model model,HttpSession session,HttpServletResponse response) {
+        Member member=null;
         if (session.getAttribute("user")==null) {
-            member = memberService.login(memberForm.getUid(), memberForm.getPw()).get();
-            model.addAttribute("user", member.getUid());
-            session.setAttribute("user", member.getUid());
+            try {
+                member = memberService.login(memberForm.getUid(), memberForm.getPw()).get();
+                ScriptUtils.alert(response,"로그인하셨습니다.");
+                model.addAttribute("user", member.getUid());
+                session.setAttribute("user", member.getUid());
+            } catch (NoSuchElementException ne) {
+                try {
+                    ScriptUtils.alert(response, "존재하지않는 회원정보입니다.");
+                } catch (Exception ex) {
+                    ex.getMessage();
+                }
+            } catch (Exception ex) {
+                ex.getMessage();
+            }
+
+
         } else {
             member=memberService.findOne((String)session.getAttribute("user")).get();
         }

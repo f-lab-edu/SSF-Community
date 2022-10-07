@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class MemberService {
@@ -20,15 +21,17 @@ public class MemberService {
     /**
      * 회원가입
      */
-    public String join(Member member) {
+    public String join(Member member) throws IllegalStateException {
+//        유효성검사 id, password, email, phone
+
+            uidValidatePolicy(member.getUid());
+            pwValidatePolicy(member.getPw());
+            EmailValidatePolicy(member.getEmail());
+            PhoneValidatePolicy(member.getPhone());
 //        중복검사 id, email
-        validateDuplicateId(member);
-        validateDuplicateEmail(member);
+            validateDuplicateId(member);
+            validateDuplicateEmail(member);
 
-//        정책유효성 검사
-
-//        validatePolicy(,member.getId());
-//        member.getEmail()
 
         memberMapper.insert(member);
         return member.getUid();
@@ -37,42 +40,52 @@ public class MemberService {
     /**
      * 아이디 정책유효성 검사
      */
-//    public static boolean uidValidatePolicy(String regex, CharSequence input) {
-//
-//        Pattern p = Pattern.compile(regex);
-//        Matcher m = p.matcher(input);
-//        return (input.length()>13 || m.matches());
-//    }
+    public static void uidValidatePolicy(String input) {
+
+        String regex="^[a-zA-Z0-9]{6,13}$";
+
+        if(!Pattern.matches(regex, input)) {
+            throw new IllegalStateException("잘못된 아이디 형식입니다.");
+        } else if (input.equals("admin")) {
+            throw new IllegalStateException("admin은 사용금지 아이디입니다.");
+        }
+    }
 
     /**
      * 비밀번호 정책유효성 검사
      */
-//    public static boolean pwValidatePolicy(String regex, CharSequence input) {
-//
-//        Pattern p = Pattern.compile(regex);
-//        Matcher m = p.matcher(input);
-//        return (input.length()>13 || m.matches());
-//    }
+    public static void pwValidatePolicy(String input) {
+
+        String regex="^.*(?=^.{8,16}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$";
+
+        if(!Pattern.matches(regex, input)) {
+            throw new IllegalStateException("잘못된 비밀번호 형식입니다.");
+        }
+    }
 
     /**
      * 이메일 정책유효성 검사
      */
-//    public static boolean EmailValidatePolicy(String regex, CharSequence input) {
-//
-//        Pattern p = Pattern.compile(regex);
-//        Matcher m = p.matcher(input);
-//        return (input.length()>13 || m.matches());
-//    }
+    public static void EmailValidatePolicy(String input) {
+
+        String regex="\\w+@\\w+\\.\\w+(\\.\\w+)?";
+
+        if(!Pattern.matches(regex, input)) {
+            throw new IllegalStateException("잘못된 이메일 형식입니다.");
+        }
+    }
 
     /**
      * 폰번호 정책유효성 검사
      */
-//    public static boolean PhoneValidatePolicy(String regex, CharSequence input) {
-//
-//        Pattern p = Pattern.compile(regex);
-//        Matcher m = p.matcher(input);
-//        return (input.length()>13 || m.matches());
-//    }
+    public static void PhoneValidatePolicy(String input) {
+
+        String regex="^01(?:0|1|[6-9])\\d{8}";
+
+        if(!Pattern.matches(regex, input)) {
+            throw new IllegalStateException("잘못된 핸드폰번호 형식입니다.");
+        }
+    }
 
 
     /**
