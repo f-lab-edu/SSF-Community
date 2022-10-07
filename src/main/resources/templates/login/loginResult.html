@@ -1,28 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script>
-    doDelete = function() {
+    doDelete = function(uid) {
         if(!confirm('정말 회원탈퇴 하시겠습니까?')) {
             alert('취소하셨습니다.');
         } else {
-            alert('회원탈퇴를 선택하셨습니다.')
+            alert('회원탈퇴를 선택하셨습니다.');
+            let memberUid = uid;
+            let d = document.createElement('form');
+            d.setAttribute('method', 'post');
+            d.setAttribute('action', '/members');
+            let hiddenField = document.createElement('input');
+            hiddenField.setAttribute('type', 'hidden');
+            hiddenField.setAttribute('name', '_method');
+            hiddenField.setAttribute('value', 'delete');
+            let hiddenFieldMember = document.createElement('input');
+            hiddenFieldMember.setAttribute('type', 'hidden');
+            hiddenFieldMember.setAttribute('name', 'uid');
+            hiddenFieldMember.setAttribute('value', memberUid);
+            d.appendChild(hiddenField);
+            d.appendChild(hiddenFieldMember);
+            document.body.appendChild(d);
+            d.submit();
         }
-        let memberUid=[[${user}]];
-        let d = document.createElement('form');
-        d.setAttribute('method', 'post');
-        d.setAttribute('action', '/members');
-        let hiddenField = document.createElement('input');
-        hiddenField.setAttribute('type', 'hidden');
-        hiddenField.setAttribute('name', '_method');
-        hiddenField.setAttribute('value', 'delete');
-        let hiddenFieldMember = document.createElement('input');
-        hiddenFieldMember.setAttribute('type', 'hidden');
-        hiddenFieldMember.setAttribute('name', 'uid');
-        hiddenFieldMember.setAttribute('value', memberUid);
-        d.appendChild(hiddenField);
-        d.appendChild(hiddenFieldMember);
-        document.body.appendChild(d);
-        d.submit();
     }
 </script>
 <body>
@@ -36,7 +36,7 @@
             <a href="/boards?category=FREE">자유게시판</a>
             <a href="/boards?category=MEETING">모임게시판</a>
             <a href="/members/updateMember">회원정보수정</a>
-            <a href="javascript:void(0)" onclick="doDelete()">회원탈퇴</a>
+            <a href="javascript:void(0)" th:attr="onclick=|doDelete('${user}')|">회원탈퇴</a>
         </p>
     </div>
 </div>

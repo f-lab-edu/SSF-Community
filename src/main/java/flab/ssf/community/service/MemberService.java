@@ -153,10 +153,11 @@ public class MemberService {
     }
 
 
-    public void updateMember(Member member,String email, String phone, String address, String name) {
-//        EmailValidatePolicy;
+    public void updateMember(Member member,String email, String phone, String address, String name)
+            throws IllegalStateException{
+        EmailValidatePolicy(email);
         validateDuplicateEmail(member);
-//        PhoneValidatePolicy;
+        PhoneValidatePolicy(phone);
         memberMapper.ammendInformation(member, email, phone, address,name);
     }
 

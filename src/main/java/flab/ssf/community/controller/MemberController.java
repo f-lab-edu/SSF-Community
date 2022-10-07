@@ -32,27 +32,41 @@ public class MemberController {
     @PostMapping("/new")
     public void create(MemberForm memberForm,HttpServletResponse response) {
         Member member = new Member();
-        member.setAddress(memberForm.getAddress());
-        member.setEmail(memberForm.getEmail());
-        member.setEnabled('Y');
-        member.setUid(memberForm.getUid());
-        member.setGrade('N');
-        member.setName(memberForm.getName());
-        member.setRole('N');
-        member.setPw(memberForm.getPw());
-        member.setPhone(memberForm.getPhone());
-
-        try {
-            memberService.join(member);
-            ScriptUtils.alertAndMovePage(response,"회원가입에 성공하였습니다.","/");
-        } catch (IllegalStateException il) {
+        if (memberForm.getAddress()=="") {
             try {
-                ScriptUtils.alertAndBackPage(response, il.getMessage());
+                ScriptUtils.alertAndBackPage(response, "주소를 입력하십시오.");
+            } catch (IOException ie){
+                ie.getMessage();
+            }
+        } else if (memberForm.getName()==""){
+            try {
+                ScriptUtils.alertAndBackPage(response, "성함을 입력하십시오.");
+            } catch (IOException ie){
+                ie.getMessage();
+            }
+        } else {
+            member.setAddress(memberForm.getAddress());
+            member.setEmail(memberForm.getEmail());
+            member.setEnabled('Y');
+            member.setUid(memberForm.getUid());
+            member.setGrade('N');
+            member.setName(memberForm.getName());
+            member.setRole('N');
+            member.setPw(memberForm.getPw());
+            member.setPhone(memberForm.getPhone());
+
+            try {
+                memberService.join(member);
+                ScriptUtils.alertAndMovePage(response, "회원가입에 성공하였습니다.", "/");
+            } catch (IllegalStateException il) {
+                try {
+                    ScriptUtils.alertAndBackPage(response, il.getMessage());
+                } catch (Exception ex) {
+                    ex.getMessage();
+                }
             } catch (Exception ex) {
                 ex.getMessage();
             }
-        } catch (Exception ex) {
-            ex.getMessage();
         }
 
     }
@@ -65,7 +79,9 @@ public class MemberController {
     }
 
     @DeleteMapping
-    public void deleteMember(Member member, HttpServletResponse response) {
+    public void deleteMember(MemberForm memberForm, HttpServletResponse response) {
+        Member member = new Member();
+        member.setUid(memberForm.getUid());
         memberService.deleteMember(member);
         try {
             ScriptUtils.alertAndMovePage(response,"회원탈퇴가 완료되었습니다.","/");
@@ -109,12 +125,19 @@ public class MemberController {
     public void ammendMemberInformation(MemberForm memberForm, HttpServletResponse response) {
         Member member = new Member();
         member.setUid(memberForm.getUid());
-        memberService.updateMember(member, memberForm.getEmail(), memberForm.getPhone(), memberForm.getAddress()
-                , memberForm.getName());
+
         try {
+            memberService.updateMember(member, memberForm.getEmail(), memberForm.getPhone(), memberForm.getAddress()
+                    , memberForm.getName());
             ScriptUtils.alertAndMovePage(response,"회원정보 수정이 완료되었습니다.","/login");
-        } catch (IOException io) {
-            io.getMessage();
+        } catch (IllegalStateException il) {
+            try {
+                ScriptUtils.alertAndBackPage(response, il.getMessage());
+            } catch (Exception ex) {
+                ex.getMessage();
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
         }
     }
 }

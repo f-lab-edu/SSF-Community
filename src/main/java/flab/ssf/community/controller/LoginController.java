@@ -32,32 +32,40 @@ public class LoginController {
 
     @PostMapping
     public String login(MemberForm memberForm, Model model,HttpSession session,HttpServletResponse response) {
-        Member member=null;
+        Member member;
         if (session.getAttribute("user")==null) {
             try {
                 member = memberService.login(memberForm.getUid(), memberForm.getPw()).get();
                 ScriptUtils.alert(response,"로그인하셨습니다.");
                 model.addAttribute("user", member.getUid());
                 session.setAttribute("user", member.getUid());
+                if (member.getRole()!='y') {
+                    return "login/loginResult";
+                }
+                return "login/loginResultAdmin";
             } catch (NoSuchElementException ne) {
                 try {
                     ScriptUtils.alert(response, "존재하지않는 회원정보입니다.");
                 } catch (Exception ex) {
                     ex.getMessage();
+                } finally {
+                    return "/";
                 }
             } catch (Exception ex) {
                 ex.getMessage();
+                return "/";
             }
-
 
         } else {
             member=memberService.findOne((String)session.getAttribute("user")).get();
+            model.addAttribute("user", member.getUid());
+            if (member.getRole()!='y') {
+                return "login/loginResult";
+            }
+            return "login/loginResultAdmin";
         }
 
-        if (member.getRole()!='y') {
-            return "login/loginResult";
-        }
-        return "login/loginResultAdmin";
+
     }
 
 
