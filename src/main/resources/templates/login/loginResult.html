@@ -1,14 +1,44 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<script>
+    doDelete = function() {
+        if(!confirm('정말 회원탈퇴 하시겠습니까?')) {
+            alert('취소하셨습니다.');
+        } else {
+            alert('회원탈퇴를 선택하셨습니다.')
+        }
+        let memberUid=[[${user}]];
+        let d = document.createElement('form');
+        d.setAttribute('method', 'post');
+        d.setAttribute('action', '/members');
+        let hiddenField = document.createElement('input');
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', '_method');
+        hiddenField.setAttribute('value', 'delete');
+        let hiddenFieldMember = document.createElement('input');
+        hiddenFieldMember.setAttribute('type', 'hidden');
+        hiddenFieldMember.setAttribute('name', 'uid');
+        hiddenFieldMember.setAttribute('value', memberUid);
+        d.appendChild(hiddenField);
+        d.appendChild(hiddenFieldMember);
+        document.body.appendChild(d);
+        d.submit();
+    }
+</script>
 <body>
 <div class="container">
     <div>
         <h1>회원 로그인 페이지</h1>
-        <p th:text="${admin}+'님 환영합니다.'"></p>
+        <p th:text="${user}+'님 환영합니다.'"></p>
         <p>
-            <a href="/members/logout">로그아웃</a>
+            <a href="/logout">로그아웃</a>
+            <a href="/boards?category=NOTICE">공지게시판</a>
+            <a href="/boards?category=FREE">자유게시판</a>
+            <a href="/boards?category=MEETING">모임게시판</a>
+            <a href="/members/updateMember">회원정보수정</a>
+            <a href="javascript:void(0)" onclick="doDelete()">회원탈퇴</a>
         </p>
     </div>
-</div> <!-- /container -->
+</div>
 </body>
 </html>
