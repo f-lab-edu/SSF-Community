@@ -26,6 +26,21 @@ public class ScriptUtils {
         out.flush();
     }
 
+    public static void alertAndMovePagePost(HttpServletResponse response, String alertText, String nextPage)
+        throws IOException {
+        init(response);
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE HTML>"+"<html>"+"<body>"+
+                "<script>alert('"+alertText+"'); let form = document.createElement('form');" +
+                "form.setAttribute('method','post');" +
+                "form.setAttribute('action','"+nextPage+"');"+
+                "document.body.appendChild(form);" +
+                "form.submit();</script>"+
+                "</body>"+
+                "</html>");
+        out.flush();
+    }
+
     public static void alertAndBackPage(HttpServletResponse response, String alertText) throws IOException {
         init(response);
         PrintWriter out = response.getWriter();

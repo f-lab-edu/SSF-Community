@@ -30,18 +30,18 @@ public class MemberController {
     }
 
     @PostMapping("/new")
-    public void create(MemberForm memberForm,HttpServletResponse response) {
+    public void create(MemberForm memberForm, HttpServletResponse response) {
         Member member = new Member();
-        if (memberForm.getAddress()=="") {
+        if (memberForm.getAddress() == "") {
             try {
                 ScriptUtils.alertAndBackPage(response, "주소를 입력하십시오.");
-            } catch (IOException ie){
+            } catch (IOException ie) {
                 ie.getMessage();
             }
-        } else if (memberForm.getName()==""){
+        } else if (memberForm.getName() == "") {
             try {
                 ScriptUtils.alertAndBackPage(response, "성함을 입력하십시오.");
-            } catch (IOException ie){
+            } catch (IOException ie) {
                 ie.getMessage();
             }
         } else {
@@ -84,7 +84,7 @@ public class MemberController {
         member.setUid(memberForm.getUid());
         memberService.deleteMember(member);
         try {
-            ScriptUtils.alertAndMovePage(response,"회원탈퇴가 완료되었습니다.","/");
+            ScriptUtils.alertAndMovePage(response, "회원탈퇴가 완료되었습니다.", "/");
         } catch (IOException io) {
             io.getMessage();
         }
@@ -123,18 +123,28 @@ public class MemberController {
 
     @PutMapping("/updateMember")
     public void ammendMemberInformation(MemberForm memberForm, HttpServletResponse response) {
-        Member member = new Member();
-        member.setUid(memberForm.getUid());
-
         try {
-            memberService.updateMember(member, memberForm.getEmail(), memberForm.getPhone(), memberForm.getAddress()
-                    , memberForm.getName());
-            ScriptUtils.alertAndMovePage(response,"회원정보 수정이 완료되었습니다.","/login");
-        } catch (IllegalStateException il) {
-            try {
-                ScriptUtils.alertAndBackPage(response, il.getMessage());
-            } catch (Exception ex) {
-                ex.getMessage();
+            if (memberForm.getName() == "") {
+                ScriptUtils.alertAndBackPage(response, "이름을 입력해주세요.");
+            } else if (memberForm.getAddress() == "") {
+                ScriptUtils.alertAndBackPage(response, "주소를 입력해주세요.");
+            } else {
+                Member member = new Member();
+                member.setUid(memberForm.getUid());
+
+                try {
+                    memberService.updateMember(member, memberForm.getEmail(), memberForm.getPhone(), memberForm.getAddress()
+                            , memberForm.getName());
+                    ScriptUtils.alertAndMovePagePost(response, "회원정보 수정이 완료되었습니다.", "/login");
+                } catch (IllegalStateException il) {
+                    try {
+                        ScriptUtils.alertAndBackPage(response, il.getMessage());
+                    } catch (Exception ex) {
+                        ex.getMessage();
+                    }
+                } catch (Exception ex) {
+                    ex.getMessage();
+                }
             }
         } catch (Exception ex) {
             ex.getMessage();
