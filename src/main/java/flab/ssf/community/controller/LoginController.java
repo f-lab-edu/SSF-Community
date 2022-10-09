@@ -1,6 +1,7 @@
 package flab.ssf.community.controller;
 
 import flab.ssf.community.domain.Member;
+import flab.ssf.community.form.MemberForm;
 import flab.ssf.community.service.MemberService;
 import flab.ssf.community.utils.ScriptUtils;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public String login(MemberForm memberForm, Model model,HttpSession session,HttpServletResponse response) {
+    public String login(MemberForm memberForm, Model model, HttpSession session, HttpServletResponse response) {
         Member member;
         if (session.getAttribute("user")==null) {
             try {
@@ -45,7 +46,7 @@ public class LoginController {
                 return "login/loginResultAdmin";
             } catch (NoSuchElementException ne) {
                 try {
-                    ScriptUtils.alert(response, "존재하지않는 회원정보입니다.");
+                    ScriptUtils.alertAndBackPage(response, "존재하지않는 회원정보입니다.");
                 } catch (Exception ex) {
                     ex.getMessage();
                 } finally {

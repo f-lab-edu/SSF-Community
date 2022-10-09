@@ -18,5 +18,5 @@ public interface CommentMapper {
 
     void update(@Param("comment") Comment comment, @Param("content") String content);
 
-    List<Comment> findbyNo(Comment comment);
+    List<Comment> findAll();
 }

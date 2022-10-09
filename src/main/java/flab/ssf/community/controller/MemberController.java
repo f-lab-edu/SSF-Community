@@ -1,5 +1,6 @@
 package flab.ssf.community.controller;
 
+import flab.ssf.community.form.MemberForm;
 import flab.ssf.community.utils.ScriptUtils;
 import flab.ssf.community.domain.Member;
 import flab.ssf.community.service.MemberService;

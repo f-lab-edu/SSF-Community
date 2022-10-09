@@ -1,17 +1,13 @@
-package flab.ssf.community.domain;
+package flab.ssf.community.form;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Setter
-@ToString
-public class Comment {
-
-    private int id;
+public class CommentForm {
 
     private String content;
 
@@ -20,8 +16,4 @@ public class Comment {
     private int no;
 
     private Date date;
-
-
-
-
 }

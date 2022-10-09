@@ -21,10 +21,9 @@
         from comment
         WHERE no =#{comment.no};
     </delete>
-    <select id="findbyNo" resultType="flab.ssf.community.domain.Comment">
+    <select id="findAll" resultType="flab.ssf.community.domain.Comment">
         select *
-        from comment
-        WHERE no =#{no};
+        from comment;
     </select>
 
 

@@ -1,4 +1,4 @@
-package flab.ssf.community.controller;
+package flab.ssf.community.form;
 
 import java.util.Date;
 

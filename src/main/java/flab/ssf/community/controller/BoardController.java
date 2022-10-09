@@ -1,5 +1,8 @@
 package flab.ssf.community.controller;
 
+import flab.ssf.community.domain.Comment;
+import flab.ssf.community.form.BoardForm;
+import flab.ssf.community.service.CommentService;
 import flab.ssf.community.utils.ScriptUtils;
 import flab.ssf.community.domain.Board;
 import flab.ssf.community.service.BoardService;
@@ -25,11 +28,13 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @Autowired
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
+    private final CommentService commentService;
 
+    @Autowired
+    public BoardController(BoardService boardService, CommentService commentService) {
+        this.boardService = boardService;
+        this.commentService = commentService;
+    }
 
     @GetMapping
     public String BoardList(Model model,HttpSession session,Category category,HttpServletRequest request) {
@@ -95,8 +100,10 @@ public class BoardController {
     @GetMapping("/getBoard")
     public String getBoard(BoardForm boardForm, Model model,HttpServletRequest request,HttpServletResponse response) {
         Board board = boardService.findBoardbyNo(boardForm.getNo()).get();
+        List<Comment> comments = commentService.findAllComment();
         viewsInspection(request.getCookies(), response, board);
         model.addAttribute("board", board);
+        model.addAttribute("comments", comments);
         return "boards/loadBoard";
     }
 
@@ -112,7 +119,7 @@ public class BoardController {
         }
 
         if(!isExisted) {
-            Cookie cookie= new Cookie("seeBoardNumber",Integer.toString(board.getNo()));
+            Cookie cookie= new Cookie("seeBoardNumber"+board.getNo(),Integer.toString(board.getNo()));
             cookie.setMaxAge(7*24*60*60); // 쿠키 생성주기 : 일주일(7day*24hour*60minutes*60seconds)
             response.addCookie(cookie);
             boardService.updateBoardViews(board);
