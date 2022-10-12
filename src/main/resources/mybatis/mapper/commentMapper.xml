@@ -11,19 +11,41 @@
     </insert>
     <update id="update">
         update comment
-        set content=#{content},
-            where no =#{comment.no};
+        set content=#{content}
+            where id =#{comment.id};
 
 
     </update>
     <delete id="delete">
         delete
         from comment
-        WHERE no =#{comment.no};
+        WHERE id =#{id};
+    </delete>
+    <delete id="deletebyNo">
+        delete
+        from comment
+        WHERE no =#{no};
+    </delete>
+    <delete id="deletebyUid">
+        delete
+        from comment
+        WHERE uid =#{uid};
     </delete>
     <select id="findAll" resultType="flab.ssf.community.domain.Comment">
         select *
         from comment;
+    </select>
+    <select id="findAllByUid" resultType="flab.ssf.community.domain.Comment">
+        select *
+        from comment WHERE uid=#{uid};
+    </select>
+    <select id="findAllByNo" resultType="flab.ssf.community.domain.Comment">
+        select *
+        from comment WHERE no=#{no};
+    </select>
+    <select id="findById" resultType="flab.ssf.community.domain.Comment">
+        select *
+        from comment WHERE id=#{id};
     </select>
 
 

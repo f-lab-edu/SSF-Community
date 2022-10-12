@@ -9,6 +9,8 @@ import java.util.Date;
 @Setter
 public class CommentForm {
 
+    private int id;
+
     private String content;
 
     private String uid;

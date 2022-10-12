@@ -1,6 +1,8 @@
 package flab.ssf.community.controller;
 
 import flab.ssf.community.form.MemberForm;
+import flab.ssf.community.service.BoardService;
+import flab.ssf.community.service.CommentService;
 import flab.ssf.community.utils.ScriptUtils;
 import flab.ssf.community.domain.Member;
 import flab.ssf.community.service.MemberService;
@@ -19,11 +21,17 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final BoardService boardService;
+    private final CommentService commentService;
+
+    public MemberController(MemberService memberService, BoardService boardService, CommentService commentService) {
+        this.memberService = memberService;
+        this.boardService = boardService;
+        this.commentService = commentService;
+    }
 
     @Autowired
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
+
 
     @GetMapping("/new")
     public String createForm() {
@@ -84,6 +92,8 @@ public class MemberController {
         Member member = new Member();
         member.setUid(memberForm.getUid());
         memberService.deleteMember(member);
+        boardService.deleteBoardByUid(member.getUid());
+        commentService.deleteCommentbyUid(member.getUid());
         try {
             ScriptUtils.alertAndMovePage(response, "회원탈퇴가 완료되었습니다.", "/");
         } catch (IOException io) {
@@ -132,6 +142,7 @@ public class MemberController {
             } else {
                 Member member = new Member();
                 member.setUid(memberForm.getUid());
+
 
                 try {
                     memberService.updateMember(member, memberForm.getEmail(), memberForm.getPhone(), memberForm.getAddress()

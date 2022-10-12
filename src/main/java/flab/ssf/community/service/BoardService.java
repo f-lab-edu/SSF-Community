@@ -40,6 +40,10 @@ public class BoardService {
         boardMapper.delete(no);
     }
 
+    public void deleteBoardByUid(String uid) {
+        boardMapper.deleteByUid(uid);
+    }
+
     /**
      * 게시글 조회수 증가
      */

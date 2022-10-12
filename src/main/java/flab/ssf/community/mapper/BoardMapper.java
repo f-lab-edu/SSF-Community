@@ -17,6 +17,9 @@ public interface BoardMapper {
     //게시글 삭제
     void delete(int no);
 
+    //회원이 작성한 게시글 삭제
+    void deleteByUid(String uid);
+
     //게시글 수정
     void update(@Param("board") Board board, @Param("title") String title,
                 @Param("content") String content, @Param("category") int category);

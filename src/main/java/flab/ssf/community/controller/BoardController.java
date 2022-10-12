@@ -90,6 +90,7 @@ public class BoardController {
     @DeleteMapping
     public void deleteBoard(BoardForm boardForm,Category checkedCategory, HttpServletResponse response) {
         boardService.deleteBoard(boardForm.getNo());
+        commentService.deleteCommentbyNo(boardForm.getNo());
         try {
             ScriptUtils.alertAndMovePage(response,"게시글 삭제가 완료되었습니다.","/boards?category="+checkedCategory);
         } catch (IOException io) {
@@ -98,13 +99,13 @@ public class BoardController {
     }
 
     @GetMapping("/getBoard")
-    public String getBoard(BoardForm boardForm, Model model,HttpServletRequest request,HttpServletResponse response) {
+    public String getBoard(BoardForm boardForm, Model model,HttpServletRequest request,HttpServletResponse response,
+                           HttpSession session) {
         Board board = boardService.findBoardbyNo(boardForm.getNo()).get();
-        List<Comment> comments = commentService.findAllComment();
-        viewsInspection(request.getCookies(), response, board);
-        model.addAttribute("board", board);
-        model.addAttribute("comments", comments);
-        return "boards/loadBoard";
+            viewsInspection(request.getCookies(), response, board);
+            model.addAttribute("board", board);
+            model.addAttribute("user", session.getAttribute("user"));
+            return "boards/loadBoard";
     }
 
 

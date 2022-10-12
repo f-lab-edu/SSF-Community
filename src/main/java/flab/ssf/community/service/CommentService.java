@@ -37,6 +37,28 @@ public class CommentService {
         commentMapper.delete(comment);
     }
 
+    public void deleteCommentbyNo(int no) {
+        commentMapper.deletebyNo(no);
+    }
+
+    public void deleteCommentbyUid(String uid) {
+        commentMapper.deletebyUid(uid);
+    }
+
+    public Comment findOne(int id) {
+        return commentMapper.findById(id);
+    }
+
+    public List<Comment> findAllCommentByUid(String uid) {
+        List<Comment> list=commentMapper.findAllByUid(uid);
+        return list;
+    }
+
+    public List<Comment> findAllCommentByNo(int no) {
+        List<Comment> list=commentMapper.findAllByNo(no);
+        return list;
+    }
+
     /**
      * 댓글 불러오기
      */

@@ -18,5 +18,15 @@ public interface CommentMapper {
 
     void update(@Param("comment") Comment comment, @Param("content") String content);
 
+    void deletebyNo(@Param("no")int no);
+
+    void deletebyUid(@Param("uid") String uid);
+
+    Comment findById(@Param("id") int id);
+
     List<Comment> findAll();
+
+    List<Comment> findAllByUid(@Param("uid") String uid);
+    List<Comment> findAllByNo(@Param("no") int no);
+
 }
